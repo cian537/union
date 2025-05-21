@@ -1,0 +1,18 @@
+{
+  "pubkey": <PUBKEY>,
+  "amount": "1000000muno",
+  "moniker": "<CIAN>",
+  "identity": "optional identity signature (ex. UPort or Keybase)",
+  "website": "validator's (optional) website",
+  "security": "validator's (optional) security contact email",
+  "details": "validator's (optional) details",
+  "commission-rate": "0.1",
+  "commission-max-rate": "0.2",
+  "commission-max-change-rate": "0.01",
+  "min-self-delegation": "1"
+}
+export PRIV_KEY=$(jq -r '.priv_key.value' ~/.union/config/priv_validator_key.json)
+export POSSESSION_PROOF=$(uniond prove-possession "$PRIV_KEY")
+uniond union-staking create-union-validator $VALIDATOR_JSON_PATH $POSSESSION_PROOF \
+  --from $KEY_NAME \
+  --chain-id union-testnet-9
